@@ -1,31 +1,27 @@
-// import { createApp } from 'vue'
-// import App from './App.vue'
-// import { firestore } from 'vuefire'
-// import { VueRouter } from 'vue-router'
-
-
-
-// createApp(App).use(firestore).use(VueRouter).mount('#app')
-
 import Vue from 'vue'
 import App from './App.vue'
-import { firestore } from 'vuefire'
+import { firestorePlugin } from 'vuefire'
 import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
-Vue.use(firestore)
+import VueCompositionApi from '@vue/composition-api'
+Vue.use(VueCompositionApi)
 
-Vue.config.productionTip = false 
+Vue.use(VueRouter)
+Vue.use(firestorePlugin)
+
+Vue.config.productionTip = false
 
 import Home from './components/Home'
+import ChatRoom from './components/ChatRoom'
 
 const router = new VueRouter({
-    routes: [
-        { path : '/', component: Home},
-    ]
+  routes: [
+    { path: '/', component: Home },
+    { path: '/chats/:id', component: ChatRoom, name: 'chat' }
+  ]
 })
 
 new Vue({
-    router,
-    render: h => h(App),
-}).$mouth('#app')
+  router,
+  render: h => h(App),
+}).$mount('#app')
